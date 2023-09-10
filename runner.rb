@@ -3,16 +3,12 @@ require './data'
 require './mushroom_data'
 require 'byebug'
 
-#trainer = DecisionTreeTrainer.new(DATA)
-#rows = ["a"]*5 + ["b"]*5
-#rows = rows.map{ |el| Array(el) }
-#trainer.send(:entropy, rows)
-tree = DecisionTreeTrainer.train(DATA)
-
-#tree = DecisionTreeTrainer.train(MUSHROOM_TRAIN_DATA)
-#tree.print
-#MUSHROOM_TEST_DATA.each do |row|
-#  puts tree.classify(row)
-#end
-
-puts tree.classify(['digg', 'New Zealand', 'yes', 12, 'Basic'])
+train_rows, test_rows = MushroomData.get_train_and_test_data(max_rows: 2000)
+tree = DecisionTreeTrainer.train(train_rows)
+tree.store("mushroom_tree.dump")
+tree.print
+correct_count = test_rows.reduce(0) do |count, row|
+  count+=1 if tree.classify(row) == row[-1]
+  count
+end
+puts "Accuracy: #{correct_count/test_rows.size.to_f}"

@@ -31,17 +31,27 @@ class DecisionNode
   end
 
   def classify(row)
+    classify_prob(row).max_by{ |_,v| v }[0]
+  end
+
+  def classify_prob(row)
     return summary_results if results
     if value.is_a?(Numeric)
       if row[column_index] >= value
-        true_branch.classify(row)
+        true_branch.classify_prob(row)
       else
-        false_branch.classify(row)
+        false_branch.classify_prob(row)
       end
     elsif row[column_index] == value
-      true_branch.classify(row)
+      true_branch.classify_prob(row)
     else
-      false_branch.classify(row)
+      false_branch.classify_prob(row)
+    end
+  end
+
+  def store(filename)
+    File.open(filename, 'wb') do |f|
+      f.write(Marshal.dump(self))
     end
   end
 
