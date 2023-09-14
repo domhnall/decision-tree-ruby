@@ -9,7 +9,14 @@ are sound.
 
 To train the model on the sample data run
 
-> ruby train.rb
+> ruby runner.rb
+
+If you want to train the model on the (mushroom dataset)[https://archive.ics.uci.edu/dataset/73/mushroom]:
+
+> ruby runner.rb mushroom
+
+In both cases the model will hold out 10% of the data for
+testing/evaluation.
 
 
 Please refer to the [blog
