@@ -1,4 +1,4 @@
-require "./decision_node"
+require "./tree_node"
 
 class DecisionTreeTrainer
   def self.train(rows, max_depth: nil)
@@ -14,7 +14,7 @@ class DecisionTreeTrainer
     @max_depth = 10
   end
 
-  # Returns a DecisionNode, which is the root of the tree we have trained
+  # Returns a TreeNode, which is the root of the tree we have trained
   def train
     return @root_node if @root_node
     puts "Starting training ..."
@@ -29,7 +29,7 @@ class DecisionTreeTrainer
     split_index = -1
     split_value = nil
     initial_entropy = entropy(rows)
-    return DecisionNode.new(results: rows) if (initial_entropy == 0 || depth >= max_depth)
+    return TreeNode.new(results: rows) if (initial_entropy == 0 || depth >= max_depth)
 
     num_attributes.times do |i|
       rows.map{|r| r[i] }.uniq.each do |value|
@@ -48,11 +48,11 @@ class DecisionTreeTrainer
 
     # OK if we have an info gain, lets split according to best criteria found
     if max_info_gain <= 0
-      DecisionNode.new(results: rows)
+      TreeNode.new(results: rows)
     else
       true_rows, false_rows = divide_set(rows, split_index, split_value)
 
-      DecisionNode.new(
+      TreeNode.new(
         column_index: split_index,
         value: split_value,
         true_branch: build_decision_node(true_rows, depth + 1),

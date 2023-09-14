@@ -1,4 +1,4 @@
-class DecisionNode
+class TreeNode
   attr_reader :column_index,
     :value,
     :true_branch,

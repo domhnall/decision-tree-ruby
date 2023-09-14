@@ -19,7 +19,7 @@ module SimpleData
   ]
 
   def self.get_train_and_test_data(split: 0.1)
-    train_data = DATA
+    train_data = DATA.dup
     # Let's remove :split of data for testing
     full_size = train_data.size
     test_data =(0..(full_size*split)).to_a.map do |i|

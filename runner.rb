@@ -8,7 +8,6 @@ train_rows, test_rows = if ARGV.first == "mushroom"
 else
   SimpleData.get_train_and_test_data(split: 0.1)
 end
-byebug
 
 tree = DecisionTreeTrainer.train(train_rows)
 tree.store("tree.dump")
