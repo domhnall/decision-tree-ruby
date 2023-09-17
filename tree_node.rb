@@ -20,7 +20,7 @@ class TreeNode
 
   def print(depth = 0)
     if results
-      print_with_indent(results.map{ |row| row.inspect.to_s }, depth*2)
+      print_with_indent(summary_results, depth*2)
     else
       print_with_indent("(column: #{column_index}, value: #{value})", depth*2)
       print_with_indent("true:", (depth+1)*2)
