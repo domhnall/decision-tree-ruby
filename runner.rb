@@ -1,10 +1,9 @@
 require './decision_tree_trainer'
 require './simple_data'
 require './mushroom_data'
-require 'byebug'
 
 train_rows, test_rows = if ARGV.first == "mushroom"
-  MushroomData.get_train_and_test_data(max_rows: 2000)
+  MushroomData.get_train_and_test_data(max_rows: 8000, split: 0.1)
 else
   SimpleData.get_train_and_test_data(split: 0.1)
 end

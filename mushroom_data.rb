@@ -6,7 +6,7 @@ module MushroomData
     raw_data = CSV.read('mushroom/agaricus-lepiota.data')[0..max_rows]
     classifications = []
     #train_data = raw_data.each{ |row| row << row.delete_at(0) }
-    train_data = raw_data.map{ |row| row[1..3].append(row[0]) }
+    train_data = raw_data.map{ |row| row[1..7].append(row[0]) }
 
     # Let's remove :split of data for testing
     full_size = train_data.size
